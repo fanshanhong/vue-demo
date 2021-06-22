@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--演示差值操作:Mustache语法, 也就是双大括号的用法-->
+
+<div id="app">
+    <h1>{{ddd}} Vue</h1>
+
+    <!--    在 Mustache 语法中，不仅可以写变量，还可以写简单的表达式-->
+    <h2>{{firstName + lastName}}</h2>
+    <h2>{{firstName + '  ' + lastName}}</h2>
+    <h2>{{counter * 2}}</h2>
+
+</div>
+
+<script src="../js/vue.js"></script>
+
+<script>
+    let app = new Vue({
+        el: "#app",
+        // 这个属性必须是data， data可以传一个对象
+        data: {
+            ddd: "你好啊",
+            firstName: "Kobe",
+            lastName: "bryant",
+            counter:100
+        }
+    })
+</script>
+
+</body>
+</html>

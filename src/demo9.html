@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 当有v-cloak属性的时候，采用下面的这个样式-->
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!--演示 v-cloak 指令的使用：用于防止差值闪烁的问题-->
+
+<!--    在 Vue 解析之前， h1标签有属性 v-cloak， 因此会采用上面写的样式来进行隐藏。 Vue解析之后， 就会自动去掉 v-cloak属性了，上面的样式就不在生效-->
+<div id="app" v-cloak>
+    <h1>{{message}} Vue</h1>
+</div>
+
+<script src="../js/vue.js"></script>
+
+<script>
+    // 代码在解析执行的时候， 先执行上面的第14行，将 {{message}} 这个字符串原封不动的展示出来。
+    // 然后才执行到这里， 发现被 Vue 管理，就会解析 "{{message}}" ，对数据进行替换，更新页面
+    // 如果这里延时1秒进行，就会出现明显的闪烁现象
+    // v-cloak 指令 就是用于防止闪烁现场的出现
+    setTimeout(function () {
+        let app = new Vue({
+            el: "#app",
+            // 这个属性必须是data， data可以传一个对象
+            data: {
+                message: "你好啊",
+            }
+        })
+    }, 1000)
+</script>
+</body>
+</html>

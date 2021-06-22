@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--演示指令 v-html 的使用-->
+
+<div id="app">
+    <!--    如果不使用 v-html指令，则将url的内容原封不动的展示出来-->
+    <h2>{{url}}</h2>
+    <!--    如果使用了v-html指令，则会自动解析url的内容，如果是html代码，则自动解析成html样式来展示-->
+    <h3 v-html="url"></h3>
+</div>
+
+
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: " 这是一个message",
+            url: '<a href="http://www.baidu.com">百度一下</a>'
+        }
+    })
+</script>
+</body>
+</html>

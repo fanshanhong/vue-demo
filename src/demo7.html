@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--演示 v-text 指令-->
+
+
+<div id="app">
+
+    <!--    使用Mustache语法将数据放入HTML中-->
+    <h1>{{ddd}} Vue</h1>
+
+    <!--    使用 v-text 指令将数据放入HTML中， 但是 v-text 指令不如 Mustache 语法灵活，比如计算简单的表达式-->
+    <h2 v-text="ddd"></h2>
+
+
+</div>
+
+<script src="../js/vue.js"></script>
+
+<script>
+    let app = new Vue({
+        el: "#app",
+        // 这个属性必须是data， data可以传一个对象
+        data: {
+            ddd: "你好啊",
+        }
+    })
+</script>
+
+</body>
+</html>

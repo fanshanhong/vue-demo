@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--使用Vue实现一个计数器-->
+
+<script src="../js/vue.js"></script>
+
+
+<div id="my-counter">
+    {{this.counter}}
+
+    <!--    使用 v-on 指令，绑定按钮的点击事件。 当按钮被点击的时候， 调用Vue中的methods参数指定的方法。-->
+    <!--    注意这两个button也要写在 my-counter 这个id里面， 因为my-counter 这个id是被Vue管理的-->
+    <button v-on:click="add">+</button>
+    <button v-on:click="sub">-</button>
+</div>
+
+<script>
+    const app = new Vue({
+        el: "#my-counter",<!--要管理的元素一定要写在这个script之前， 如果写在后面不生效-->
+        data: {
+            counter: 0
+        },
+        // methods 可以传入多个方法供使用
+        methods: {
+            // 当按钮点击，回调这里的方法，我们修改counter的值，自动就更新到页面上了
+            add: function () {
+                console.log("add function is invoked")
+                this.counter++;
+            },
+            sub: function () {
+                console.log("sub function is invoked")
+                if (this.counter > 0) {
+                    this.counter--;
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

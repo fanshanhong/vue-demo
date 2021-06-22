@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--演示 v-pre 指令的使用, v-pre 指令表示把内容原封不动的显示出来，不进行解析-->
+
+<div id="app">
+
+    <!--    使用Mustache语法将数据放入HTML中-->
+    <h1>{{message}} Vue</h1>
+
+    <!--    想要 在 HTML 中展示字符串："{{message}}" 不需要解析。就相当于转义一样-->
+    <h2 v-pre>{{message}}</h2>
+
+</div>
+
+<script src="../js/vue.js"></script>
+
+<script>
+    let app = new Vue({
+        el: "#app",
+        // 这个属性必须是data， data可以传一个对象
+        data: {
+            message: "你好啊",
+        }
+    })
+</script>
+
+</body>
+</html>

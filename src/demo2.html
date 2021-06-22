@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--演示使用Vue展示一个列表-->
+
+<div id="my-list">
+    <ul>
+        <!-- v-for 指令， 由Vue来进行解析， Vue会遍历movies，然后生成多个 li 标签-->
+        <li v-for="item in movies">{{item}}</li>
+
+        <!-- 在运行的过程中， F12打开调试， 输入 app.movies.push("NewMovie")  可以看到页面自动刷新       -->
+    </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+
+<script>
+
+    let app = new Vue({
+        el: '#my-list',// 注意这个# 不要忘记了
+        data: {
+            movies: ["哈喽", "halo", "movie3"]
+        }
+    })
+
+
+</script>
+
+</body>
+</html>
