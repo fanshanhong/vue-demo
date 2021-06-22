@@ -29,6 +29,9 @@
     <button v-on:click="changeRed()">变红色</button>
     <button v-on:click="changeGreen()">变绿色</button>
 
+
+    <!--使用v-bind 动态绑定style属性 (数组语法) 使用:就是在 style 中放入数组， 数组中放的是用于指定style的对象-->
+    <h2 v-bind:style="[baseStyle]">{{message}}</h2>
 </div>
 
 
@@ -42,7 +45,10 @@
             message: "你好啊",
             finalSize: '100px',
             changeSize: 100,
-            textColor: 'gray'
+            textColor: 'gray',
+            baseStyle: {
+                backgroundColor: 'blue'
+            }
         },
         methods: {
             getStyles: function () {

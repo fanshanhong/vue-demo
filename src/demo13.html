@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--演示计算属性-->
+<!--在模板中可以直接通过插值语法来显示data中的数据，但是在某些情况下，我们可能需要对数据进行一些转化后再显示，或者将多个数据整合起来进行显示-->
+
+<div id="app">
+    <h2>{{firstName + '  ' + lastName}}</h2>
+    <h2>{{firstName}} {{lastName}}</h2>
+
+    <!--    可以采用methods的方式，来拼接数据-->
+    <h2>{{getFullName()}}</h2>
+
+    <!--    采用计算属性 的方式，对数据进行转换。 这里把computed 中的fullName 当做一个属性来使用， 不需要加小括号-->
+    <h2>{{fullName}}</h2>
+
+    <!--计算属性的应用场景-->
+    <div>总价格:{{totalPrice}}</div>
+</div>
+
+<script src="../js/vue.js"></script>
+
+<script>
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            firstName: 'Kobe',
+            lastName: 'xx',
+            books: [
+                {id: 110, name: "book1", price: 30},
+                {id: 111, name: "book2", price: 40},
+                {id: 112, name: "book3", price: 50},
+                {id: 113, name: "book4", price: 60},
+            ]
+        },
+        methods: {
+            getFullName: function () {
+                return this.firstName + ' ' + this.lastName;
+            }
+        },
+        // 计算属性
+        computed: {
+            // 这里也是定义函数的。但是一般函数名就是属性名，后续可以直接用
+            fullName: function () {
+                return this.firstName + ' ' + this.lastName;
+            },
+            totalPrice: function () {
+
+                let total = 0;
+                for (let i = 0; i < this.books.length; i++) {
+                    total += this.books[i].price;
+                }
+                return total;
+
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>
