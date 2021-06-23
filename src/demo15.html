@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--    v-on 绑定事件监听器    -->
+<!--    v-on 传参数    -->
+<!--    如果 v-on 绑定的事件监听器不需要传参数，小括号() 可以不写    -->
+
+<div id="app">
+
+    <h2>{{counter}}</h2>
+    <button v-on:click="increment">+</button>
+    <button v-on:click="decrement">-</button>
+
+    <!--    语法糖：
+    v-bind 的 语法糖，就是可以省略
+    v-on 的语法糖， 是用@ -->
+    <button @click="increment">+</button>
+
+    <!--    演示需要参数的事件监听方法，数字的话不需要带引号-->
+    <button @click="funcWithParams(123)">演示带参数的事件监听方法:数字</button>
+    <!--    演示需要参数的事件监听方法，字符串需要带引号。 如果不带引号，会认为是一个变量-->
+    <button @click="funcWithParams('123abc')">演示带参数的事件监听方法:字串</button>
+    <!--    演示需要参数的事件监听方法，但是实际上没传，那就是个undefined-->
+    <button @click="funcWithParams()">演示带参数的事件监听方法:undefined</button>
+    <!--    演示需要参数的事件监听方法，但是省略了小括号，这个时候 Vue会默认将浏览器产生的event事件作为参数传入方法-->
+    <button @click="funcWithParams">演示带参数的事件监听方法:event</button>
+
+
+    <!--    演示方法中需要传入 event 参数和其他参数。 Vue 解析 $event， 会去获取浏览器产生的event对象， 传入 -->
+    <button @click="funcWithEventAndParams('abc', $event)">演示带参数的事件监听方法:event+params</button>
+
+
+    <!--    v-on 的修饰符   -->
+
+    <!--    事件冒泡, 当 div 和 里面的 button 都监听 click 事件，点击在button上，button 和 div 都会触发对应的回调方法-->
+    <div @click="divClick()">
+        This is a div
+        <button @click="buttonClick()">button</button>
+    </div>
+
+    <!--    想要点在button上，只有button响应， 点在div上，才需要div响应。 只要在 @click上添加修饰符：stop 即可， 也就是 v-on:click.stop
+     就是要阻止事件冒泡，相当于 原生js的 event.stopPropagation() -->
+    <div @click="divClick()">
+        This is a div2
+        <button v-on:click.stop="buttonClick()">button</button>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <!--    .prevent 阻止默认事件。 比如一个form， 里面 input标签，type=submit，默认动作就是提交。如果想要阻止它的默认操作，就添加 .prevent 修饰符-->
+    <form action="/demo/demo_form.asp" method="get"> <!-- 这里method属性可以用于指定是get 还是 post -->
+        First name:<br>
+        <input type="text" name="firstname" value="Mickey">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Mouse">
+        <br><br>
+        <input type="submit" value="提交" @click.prevent="submitClick">
+        <!--        想要阻止提交表单的默认行为，除了在 input 这里写之外， 也可以写在form上 @submit.prevent 就好了: <form action="" @submit.prevent >
+        -->
+    </form>
+
+    <p>如果您点击提交，表单数据会被发送到名为 demo_form.asp 的页面。添加@click.prevent，就不会执行默认的操作了，而是只执行我们指定的submitClick方法</p>
+
+
+    <br>
+    <br>
+    <br>
+    <!--    监听键盘的点击 v-on:keyup 监听键盘弹起   v-on:keydown 监听键盘按下。 这里只提供了一下常见的按键，对于abc 这样的按键的监听， 采用event.keycode-->
+    <input type="text" v-on:keyup="keyUp">
+    <!--    如果只想监听特定的几个按键， 比如回车-->
+    <input type="text" v-on:keyup.enter="keyUp">
+
+    <br>
+    <br>
+    <br>
+
+    <!--    .once 只触发一次-->
+    <button @click.once="onceClick">测试只能点击一次</button>
+
+
+    <!--    串联修饰符-->
+    <button @click.stop.prevent.once="stopOnce"></button>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            counter: 0
+        },
+        methods: {
+            // 采用ES6的写法
+            increment() {
+                this.counter++;
+            },
+            // 采用ES5的写法
+            decrement: function () {
+                this.counter--;
+            },
+            funcWithParams(param) {
+                console.log('====', param);
+            },
+            // 方法中需要传入 event 参数和其他参数
+            funcWithEventAndParams(param, event) {
+                console.log(param)
+                console.log(event)
+            },
+
+            divClick() {
+                console.log("divClick");
+            },
+            buttonClick() {
+                console.log("buttonClick");
+            },
+            submitClick() {
+
+                console.log("submitClick");
+            },
+            keyUp() {
+                console.log(event.keyCode);
+                console.log("keyUp");
+            },
+            onceClick() {
+                console.log("onceClick");
+            },
+            stopOnce() {
+                console.log("stopOnce");
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>
