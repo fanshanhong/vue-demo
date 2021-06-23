@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <button>button1</button>
+    <button>button2</button>
+    <button>button3</button>
+    <button>button4</button>
+</div>
+
+<!--ES5和ES6相关-->
+
+<script>
+
+    // var没有块级作用域，只有function作用域
+    // ES6中加入let， let有块级作用域
+
+    // var没有块级作用域引起的问题：if
+    var func
+    if (true) {
+        var name = "xxx"
+        func = function () {
+            console.log(name);
+        }
+
+    }
+    // 在其他地方调用func方法之前，name可能被修改了
+    name = "kobe"
+    func()
+
+    // var没有块级作用域引起的问题：for
+    var buttons = document.getElementsByTagName("button")
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function () {
+            console.log(i + '被点击了')
+        })
+    }
+
+    //    问题原因：由于var没有块级作用域，i的值是不断变化的。当给button的点击回调设置好后，外层的i不断变化。最终i变化为4。然后用户点击按钮，不论哪个按钮，都打印"4被点击了"
+    //    正确做法：采用闭包的方式
+
+    for (var i = 0; i < buttons.length; i++) {
+        (function (i) { // 这是个匿名function，传入的i是调用的时候传入的i，传入后，这个i在函数内是有块级作用域的，不受for循环对i的修改的影响。因此第一次传到这里就是0，然后button的点击事件就是打印 "0被点击了"
+            buttons[i].addEventListener('click', function () {
+                console.log(i + '被点击了')
+            })
+        })(i) // 这个i是for循环的那个i
+    }
+
+
+    // ES6中加入了 let， let是有for 和 if的块级作用域的
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function () {
+            console.log(i)
+        })
+    }
+
+
+    // 下面演示const相关使用
+    // const 将某个量修饰为常量，不可以再次赋值
+    // 建议：开发中优先使用const
+
+    // 1.给const 赋值后，不能更改
+    // 2.在使用const的时候，必须赋值
+    // 3.const指向的对象是不能改的，但是可以改变对象内部的属性
+
+
+    // 对象字面量的增强写法
+    // 1.对象字面量
+    const obj1 = new Object(); // 这是正常写法
+    const obj2 = {}; // 这就是对象字面量的写法
+
+
+    // 2.ES中对字面量的增强写法
+    const sex = "男";
+    const age = 18;
+
+    // ES5正常写法
+    const obj3 = {
+        sex: sex,
+        age: age
+    }
+    console.log(obj3)
+
+    // ES6中的增强写法，相当于会自动帮我们展开，但是限于key和value变量相同的情况
+    const obj4 = {sex, age}
+    console.log(obj4)
+
+    // ES5中函数的写法
+    const obj5 = {
+        run: function () {
+
+        }
+    }
+    // ES6中函数的写法, 跟上面ES5写法的效果一致，比较简单
+    const obj6 = {
+        run() {
+
+        }
+    }
+
+</script>
+
+
+</body>
+</html>
